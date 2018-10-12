@@ -45,7 +45,7 @@ class BluetoothScanActivity : AppCompatActivity(), IBleBase.BleDisconnectListene
         }
 
         override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
-            mService = (service as LocalBinder).service
+            mService = (service as LocalBinder).getService()
             // 开始搜索
             mService?.search()
         }
@@ -71,7 +71,7 @@ class BluetoothScanActivity : AppCompatActivity(), IBleBase.BleDisconnectListene
                         .setTitle("提示")
                         .setMessage("确定连接:$name")
                         .setCancelable(true)
-                        .setPositiveButton("确定", { dialog, which ->
+                        .setPositiveButton("确定") { dialog, which ->
                             currentBleName = mListData[position].name
                             currentBleMac = mListData[position].address
 
@@ -84,9 +84,9 @@ class BluetoothScanActivity : AppCompatActivity(), IBleBase.BleDisconnectListene
 
                             // 显示loading
                             showLoading("连接中")
-                        }).setNegativeButton("取消", { dialog, which ->
+                        }.setNegativeButton("取消") { dialog, which ->
                             dialog.dismiss()
-                        }).show()
+                        }.show()
             }
         })
     }

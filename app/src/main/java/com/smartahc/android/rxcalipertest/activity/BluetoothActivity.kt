@@ -20,6 +20,7 @@ import com.smartahc.android.rxcalipertest.R
 import com.smartahc.android.rxcalipertest.utils.Constant
 import com.smartahc.android.rxcalipertest.utils.SPUtil
 import com.smartahc.android.rxcalipertest.utils.ToolbarUtils
+import com.smartahc.android.smartble.SmartAHC
 import com.smartahc.android.smartble.service.BleService
 import com.smartahc.android.smartble.service.LocalBinder
 import kotlinx.android.synthetic.main.activity_bluetooth.*
@@ -37,13 +38,13 @@ class BluetoothActivity : AppCompatActivity(), View.OnClickListener {
     private var mService: BleService? = null
     private val connection = object : ServiceConnection {
         override fun onServiceConnected(name: ComponentName, service: IBinder) {
-            mService = (service as LocalBinder).service
+            mService = (service as LocalBinder).getService()
             mService?.let {
-                if (!it.isBleEnable) {
+                if (!it.isBleEnable()) {
                     Toast.makeText(this@BluetoothActivity, "当前设备不支持蓝牙", Toast.LENGTH_SHORT).show()
                     return
                 }
-                if (!it.isBleStart) {
+                if (!it.isBleStart()) {
                     val intent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                     startActivity(intent)
@@ -61,6 +62,7 @@ class BluetoothActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(R.layout.activity_bluetooth)
         startService(Intent(this, BleService::class.java))
         bindService(Intent(this, BleService::class.java), connection, Context.BIND_AUTO_CREATE)
+        SmartAHC.init(applicationContext, "28cf3f5c1848b25c6ca702194e643b2ab8463e17")
 
         getPermission()
         SPUtil.putString(Constant.BLE_NAME, "")
@@ -156,7 +158,7 @@ class BluetoothActivity : AppCompatActivity(), View.OnClickListener {
     override fun onDestroy() {
         unbindService(connection)
         stopService(Intent(this, BleService::class.java))
-
+        SmartAHC.destroy()
         super.onDestroy()
     }
 }

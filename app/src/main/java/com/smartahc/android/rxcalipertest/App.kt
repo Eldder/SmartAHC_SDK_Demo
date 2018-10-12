@@ -17,11 +17,6 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         instance = this
-        initConfig()
     }
 
-    private fun initConfig() {
-        Config.INSTANCE.appKey = "4f6d98ecfb9d06bb84e7b64337b299e2d0b1c82d"
-        Config.INSTANCE.appID = 6056
-    }
 }
