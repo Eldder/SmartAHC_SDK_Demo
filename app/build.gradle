@@ -6,7 +6,7 @@ android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.smartahc.android.rxcalipertest"
-        minSdkVersion 21
+        minSdkVersion 18
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
@@ -20,8 +20,6 @@ android {
 
         sourceSets {
             main {
-//                jni.srcDirs = []
-//                jniLibs.srcDir "src/main/libs"
                 jniLibs.srcDirs = ['libs']
             }
         }

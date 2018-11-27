@@ -6,10 +6,4 @@ package com.smartahc.android.rxcalipertest.listener
  */
 interface BleDataParseListener {
     fun onEarTagParse(earTag: String)
-
-    /*fun onSwitchParse(switch: SwitchBean)
-
-    fun onModuleParse(module: ModuleBean)
-
-    fun onMagnetParse(magnet: MagnetBean)*/
 }
