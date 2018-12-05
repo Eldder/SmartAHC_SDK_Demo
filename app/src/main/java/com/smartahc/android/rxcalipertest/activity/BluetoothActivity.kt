@@ -60,7 +60,7 @@ class BluetoothActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bluetooth)
-        SmartAHC.init(applicationContext, "2410538290d8e55a20cf9a8c345112330633f765")
+        SmartAHC.init(applicationContext, "your app key")
         bindService(Intent(this, BleService::class.java), connection, Context.BIND_AUTO_CREATE)
 
         getPermission()
